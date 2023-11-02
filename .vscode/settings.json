@@ -1,0 +1,17 @@
+{
+  "files.associations": {
+    "*.tcc": "cpp",
+    "deque": "cpp",
+    "string": "cpp",
+    "unordered_map": "cpp",
+    "vector": "cpp",
+    "ostream": "cpp"
+  },
+  "makefile.launchConfigurations": [
+    {
+      "cwd": "/home/devdias93/ED/TP2/bin",
+      "binaryPath": "/home/devdias93/ED/TP2/bin/tp2.out",
+      "binaryArgs": []
+    }
+  ]
+}
