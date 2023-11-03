@@ -19,7 +19,7 @@ Grafo::Grafo(int n) {
 
 Grafo::~Grafo() {
   vertices->~AdjList();
-  delete[] vertices;
+  //delete[] vertices;
 }
 
 

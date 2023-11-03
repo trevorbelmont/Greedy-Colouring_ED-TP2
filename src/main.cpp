@@ -29,7 +29,7 @@ int main() {
     }
 
     // Cria lista paralela de vértices por coloração
-    int cor[g.size()][2];
+    int cor[g.QuantidadeVertices()][2];
     for (int i = 0; i < g.size(); i++) {
       cor[i][1] = g.vertices->getColour(i);
       cor[i][0] = g.vertices->getId(i);
@@ -40,10 +40,12 @@ int main() {
     for (int i = 0; i < g.QuantidadeVertices(); i++) {
       g.ImprimeVizinhos(cor[i][0]);
     }
+    cout << "";
 
   } else if (function == "-k") {
     cout << (g.QuantidadeArestas() == (g.QuantidadeVertices() * (g.QuantidadeVertices() - 1)) / 2) << endl;
   }
+  cout << " fim ";
   return 0;
 }
 
@@ -73,7 +75,6 @@ void createGraph(Grafo* g) {
       if (i > 0) {  // pula a primeira entrada da linha (pois essa é a entrada do número de vizinhos)
         g->InsereAresta(j, stoi(word));
       }
-
       i++;
     }
   }
