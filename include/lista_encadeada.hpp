@@ -1,18 +1,19 @@
 #ifndef LIST_HPP
 #define LIST_HPP
 
-struct Node {
-  int key;
-  Node* next = nullptr;
-  Node* prev = nullptr;
-};
-
 class List {
  public:
+  // cria lista sem alocar memória
   List();
+  // cria lista dinâmicamente alocada de tamanho n
+  List(int n);
+  // desaloca memória
   ~List();
 
+  // Aloca memória. Se a lista estiver preenchida, faz back up e realloca.
+  void reallocate(int n);
   int size();
+  // Sempre insere no final (desde que haja espaço).
   void insert(int n);
   int get(int i);
   void print();
@@ -21,8 +22,8 @@ class List {
 
  private:
   int size_;
-  Node* first_;
-  Node* last_;
+  int maxSize_;
+  int* keys_;
 };
 
 #endif

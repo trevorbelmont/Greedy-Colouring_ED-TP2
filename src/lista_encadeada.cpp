@@ -2,11 +2,40 @@
 
 #include <iostream>
 
-using namespace std;
 
 List::List() {
   size_ = 0;
-  first_ = last_ = nullptr;
+  maxSize_ = 0;
+}
+
+List::List(int n) {
+  size_ = 0;
+  keys_ = new int[n];
+  maxSize_ = n;
+}
+
+void List::reallocate(int n) {
+  if (empty()) {
+    if (maxSize_ > 0) {
+      delete[] keys_;
+    }
+    keys_ = new int[n];
+    maxSize_ = n;
+  } else { // faz back up dos dados, realoca e recarrega o array adj_;
+    // max é o número máximo de elementos que devem ser preservados - em função do novo tamanho do array
+    int max = (n < size_) ? n : size_;
+    int aux[max];
+    for (int i = 0; i < max; i++) {
+      aux[i] = keys_[i];
+    }
+    delete[] keys_;
+    keys_ = new int[n];
+    maxSize_ = n;
+
+    for (int i = 0; i < max; i++) {
+      keys_[i] = aux[i];
+    }
+  }
 }
 
 int List::size() {
@@ -18,51 +47,33 @@ bool List::empty() {
 }
 
 void List::insert(int key) {
-  Node* no = new Node;
-  no->key = key;
-
-  if (empty()) {
-    first_ = last_ = no;
-  } else {
-    last_->next = no;
-    no->prev = last_;
-    last_ = no;
+  if (size_ < maxSize_) {
+    keys_[size_] = key;
+    size_++;
   }
-  size_++;
 }
 
 int List::get(int i) {
-  Node* x = first_;
-
   if (i >= 0 && i < size_) {
-    for (int j = 0; j < i; j++) {
-      x = x->next;
-    }
+    return keys_[i];
+  } else {
+    return -1;
   }
-  return x->key;
 }
 
 void List::print() {
-  Node* x = first_;
-
   for (int j = 0; j < size_; j++) {
-    cout << x->key << " ";
-    x = x->next;
+    std::cout << keys_[j] << " ";
   }
-  cout << endl;
+  std::cout << std::endl;
 }
 void List::removeLast() {
   if (size() > 0) {
-    Node* aux = last_;
-    last_ = last_->prev;
-    delete aux;
     size_--;
   }
 }
 
 List::~List() {
-  while (size_ > 0) {
-    removeLast();
-  }
-  last_ = first_ = nullptr;
+  delete[] keys_;
+  size_ = maxSize_ = 0;
 }

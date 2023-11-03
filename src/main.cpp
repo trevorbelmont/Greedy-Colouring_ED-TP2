@@ -9,7 +9,15 @@ using namespace std;
 // cria o grafo g a partir da entrada padrão.
 void createGraph(Grafo* g);
 
-int main() {
+
+int main(){
+  AdjList a(10);
+  cout << "aaaaa";
+
+}
+
+
+int main2() {
   string function = "-n";
 
   Grafo g;
@@ -29,6 +37,7 @@ int main() {
   } else if (function == "-k") {
     cout << (g.QuantidadeArestas() == (g.QuantidadeVertices() * (g.QuantidadeVertices() - 1)) / 2) << endl;
   }
+  return 0;
 }
 
 void createGraph(Grafo* g) {
@@ -37,6 +46,8 @@ void createGraph(Grafo* g) {
 
   getline(cin, nn);
   n = stoi(nn);
+
+  g->allocate(n);
 
   for (int i = 0; i < n; i++) {
     g->InsereVertice(i);
@@ -66,9 +77,9 @@ void createGraph(Grafo* g) {
   stringstream stream(colours);  // cria um stream de string.
   string word;                   // a string que comportará a string  do get line picotada - uma palavra por vez
 
-  int i = 0;  // índice para indereçar a cor i ao vértice i
-  while (getline(stream, word, ' ')) { // quebra a string de colorações "colours" em palavras
-    g->vertices.setColour(i, stoi(word));
+  int i = 0;                            // índice para indereçar a cor i ao vértice i
+  while (getline(stream, word, ' ')) {  // quebra a string de colorações "colours" em palavras
+    g->vertices->setColour(i, stoi(word));
     i++;
   }
 }

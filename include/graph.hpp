@@ -10,8 +10,15 @@
 
 class Grafo {
  public:
+  // Cria grafo sem alocar ou limitar número de vértices.
   Grafo();
+  // Cria grafo com n vértices;
+  Grafo(int n);
   ~Grafo();
+
+  void allocate(int n);
+
+  int size();
 
   // Insere vértice no grafo com chave de valor k
   void InsereVertice(int k);
@@ -26,10 +33,11 @@ class Grafo {
 
   void ImprimeVizinhos(int v);
 
-  AdjList vertices; // encapusular
+  AdjList* vertices;  // Lista de adjacência dinâmicamente alocada encapusular
 
  private:
   int size_;
+  int maxVertex_;
 };
 
 #endif

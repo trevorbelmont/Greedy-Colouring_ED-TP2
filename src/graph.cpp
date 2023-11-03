@@ -8,19 +8,42 @@ using std::endl;
 
 Grafo::Grafo() {
   size_ = 0;
+  maxVertex_ = 0;
 }
+
+Grafo::Grafo(int n) {
+  size_ = 0;
+  vertices = new AdjList(n);
+  maxVertex_ = n;
+}
+
 Grafo::~Grafo() {
-  vertices.~AdjList();
+  vertices->~AdjList();
+  delete[] vertices;
+}
+
+
+void Grafo::allocate(int n) {
+  if(maxVertex_ > 0){
+    delete [] vertices;
+  }
+  vertices = new AdjList(n);
+  maxVertex_ = n;
+  size_ = 0;
+}
+
+int Grafo::size() {
+  return size_;
 }
 
 void Grafo::InsereVertice(int k) {
-  vertices.insert(k);
+  vertices->insert(k);
   size_++;
 }
 
 void Grafo::InsereAresta(int v, int w) {
-  if (v < size_ && w < size_) {
-    vertices.update(v, w);
+  if (v < size_ && w < size_ && v >= 0 && w >= 0) {
+    vertices->update(v, w);
     // vertices.update(w, v); //a especificação da pa é redundante na entrada de arestas, por isso essa linha foi omitida.
   } else {
     cout << "Vértice ainda não foi criado! Há " << size_ << endl;
@@ -35,28 +58,28 @@ int Grafo::QuantidadeVertices() {
 int Grafo::QuantidadeArestas() {
   int doubleEdges = 0;
   for (int i = 0; i < size_; i++) {
-    doubleEdges += vertices.get(i)->size();
+    doubleEdges += vertices->get(i)->size();
   }
   return doubleEdges / 2;
 }
 
 int Grafo::GrauMinimo() {
-  int min = vertices.get(0)->size();
+  int min = vertices->get(0)->size();
   for (int i = 0; i < size_; i++) {
-    min = (vertices.get(i)->size() < min) ? vertices.get(i)->size() : min;
+    min = (vertices->get(i)->size() < min) ? vertices->get(i)->size() : min;
   }
   return min;
 }
 
 int Grafo::GrauMaximo() {
-  int max = vertices.get(0)->size();
+  int max = vertices->get(0)->size();
   for (int i = 0; i < size_; i++) {
-    max = (vertices.get(i)->size() > max) ? vertices.get(i)->size() : max;
+    max = (vertices->get(i)->size() > max) ? vertices->get(i)->size() : max;
   }
   return max;
 }
 
 void Grafo::ImprimeVizinhos(int v) {
-  cout << vertices.getKey(v) << " (c-" << vertices.getColour(v) << "):  ";
-  vertices.get(v)->print();
+  cout << vertices->getId(v) << " (c-" << vertices->getColour(v) << "):  ";
+  vertices->get(v)->print();
 }
