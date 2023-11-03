@@ -1,5 +1,5 @@
-#ifndef LISTA_ADJACENCIA
-#define LISTA_ADJACENCIA
+#ifndef LISTA_ADJACENCIA_HPP
+#define LISTA_ADJACENCIA_HPP
 
 #include "lista_encadeada.hpp"
 
@@ -17,9 +17,6 @@ class AdjList {
   // Cria lista de Adjacência de tamanho máximo igual a n;
   AdjList(int n);
 
-  //Desaloca memória
-  ~AdjList();
-
   // Realoca n Nodelists no array de da lista de adjacência. Preser
   void reallocate(int n);
 
@@ -35,6 +32,10 @@ class AdjList {
   void setColour(int vertex, int colour);
   int getColour(int vertex);
   void removeLast();
+
+
+  // Desaloca memória
+  ~AdjList();
 
  private:
   int size_;

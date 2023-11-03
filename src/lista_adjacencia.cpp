@@ -3,23 +3,19 @@
 #include "lista_encadeada.hpp"
 
 AdjList::AdjList() {
-  maxSize_ = size_ = 0;
+  adj_ = new NodeList[100];
+  maxSize_ = 100;
+  size_ = 0;
 }
 AdjList::AdjList(int n) {
   size_ = 0;
   adj_ = new NodeList[n];
   maxSize_ = n;
 
-// Inicializa todas as sublistas com tamanho máximo igual ao número de vértices (para grafos completos);
-for(int i = 0; i < maxSize_; i++){
-  adj_[i].l.reallocate(n);
-}
-
-}
-
-AdjList::~AdjList() {
-  delete[] adj_;
-  size_ = maxSize_ = 0;
+  // Inicializa todas as sublistas com tamanho máximo igual ao número de vértices (para grafos completos);
+  for (int i = 0; i < maxSize_; i++) {
+    adj_[i].l.reallocate(n);
+  }
 }
 
 void AdjList::reallocate(int n) {
@@ -110,15 +106,16 @@ void AdjList::setColour(int vertex, int colour) {
 
 int AdjList::getColour(int vertex) {
   if (empty()) {
-    
   } else if (vertex >= 0 && vertex < size_) {
     return adj_[vertex].colour;
   }
   return -1;
 }
-
-void AdjList::removeLast() {
-  if (size() > 0) {
-    size_--;
+AdjList::~AdjList() {
+  for (int i = 0; i < maxSize_; i++) {
+    adj_[i].l.~List();
   }
+  delete[] adj_;
+
+  size_ = maxSize_ = 0;
 }

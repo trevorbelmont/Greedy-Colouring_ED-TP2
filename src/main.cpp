@@ -3,21 +3,14 @@
 #include <string>
 
 #include "graph.hpp"
+#include "muita_Sort.hpp"
 
 using namespace std;
 
 // cria o grafo g a partir da entrada padrão.
 void createGraph(Grafo* g);
 
-
-int main(){
-  AdjList a(10);
-  cout << "aaaaa";
-
-}
-
-
-int main2() {
+int main() {
   string function = "-n";
 
   Grafo g;
@@ -34,6 +27,20 @@ int main2() {
     for (int i = 0; i < g.QuantidadeVertices(); i++) {
       g.ImprimeVizinhos(i);
     }
+
+    // Cria lista paralela de vértices por coloração
+    int cor[g.size()][2];
+    for (int i = 0; i < g.size(); i++) {
+      cor[i][1] = g.vertices->getColour(i);
+      cor[i][0] = g.vertices->getId(i);
+    }
+
+    bubbleSort(cor, g.size());
+
+    for (int i = 0; i < g.QuantidadeVertices(); i++) {
+      g.ImprimeVizinhos(cor[i][0]);
+    }
+
   } else if (function == "-k") {
     cout << (g.QuantidadeArestas() == (g.QuantidadeVertices() * (g.QuantidadeVertices() - 1)) / 2) << endl;
   }

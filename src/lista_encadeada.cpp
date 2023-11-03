@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-
 List::List() {
   size_ = 0;
-  maxSize_ = 0;
+  maxSize_ = 100;
+  keys_ = new int[100];
 }
 
 List::List(int n) {
@@ -21,7 +21,7 @@ void List::reallocate(int n) {
     }
     keys_ = new int[n];
     maxSize_ = n;
-  } else { // faz back up dos dados, realoca e recarrega o array adj_;
+  } else {  // faz back up dos dados, realoca e recarrega o array adj_;
     // max é o número máximo de elementos que devem ser preservados - em função do novo tamanho do array
     int max = (n < size_) ? n : size_;
     int aux[max];
@@ -74,6 +74,9 @@ void List::removeLast() {
 }
 
 List::~List() {
+  if (maxSize_ == 0) {
+    return;
+  }
   delete[] keys_;
   size_ = maxSize_ = 0;
 }
