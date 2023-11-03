@@ -3,8 +3,7 @@
 #include "lista_encadeada.hpp"
 
 AdjList::AdjList() {
-  adj_ = new NodeList[100];
-  maxSize_ = 100;
+    maxSize_ = 0;
   size_ = 0;
 }
 AdjList::AdjList(int n) {
@@ -47,7 +46,7 @@ bool AdjList::empty() {
 }
 
 void AdjList::insert(int k) {
-  if (maxSize_ == 0) {  // Se alista não foi inicializada, inicializa alocando 100 nodelists
+  if (maxSize_ == 0) {  // Se alista de adjacências não foi inicializada, inicializa alocando 100 nodelists
     reallocate(100);
     maxSize_ = 100;
   }

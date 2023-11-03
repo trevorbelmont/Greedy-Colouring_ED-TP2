@@ -40,12 +40,23 @@ int main() {
     for (int i = 0; i < g.QuantidadeVertices(); i++) {
       g.ImprimeVizinhos(cor[i][0]);
     }
-    cout << "";
+
+    bool greedy = g.CheckGreedy(cor);
+    cout << "CheckGredy :: " << greedy << " ";
+    if (!(!greedy && greedy)) {
+      cout << endl;
+      for (int i = 0; i < g.QuantidadeVertices(); i++) {
+        cout << cor[i][0] << " ";
+      }
+      cout << endl;
+    } else {
+      cout << endl;
+    }
 
   } else if (function == "-k") {
     cout << (g.QuantidadeArestas() == (g.QuantidadeVertices() * (g.QuantidadeVertices() - 1)) / 2) << endl;
   }
-  cout << " fim ";
+
   return 0;
 }
 
@@ -74,6 +85,8 @@ void createGraph(Grafo* g) {
     while (getline(stream, word, ' ')) {
       if (i > 0) {  // pula a primeira entrada da linha (pois essa é a entrada do número de vizinhos)
         g->InsereAresta(j, stoi(word));
+      } else {
+        g->vertices->get(i)->reallocate(stoi(word));
       }
       i++;
     }
@@ -85,9 +98,9 @@ void createGraph(Grafo* g) {
   stringstream stream(colours);  // cria um stream de string.
   string word;                   // a string que comportará a string  do get line picotada - uma palavra por vez
 
-  int i = 0;                            // índice para indereçar a cor i ao vértice i
-  while (getline(stream, word, ' ')) {  // quebra a string de colorações "colours" em palavras
-    g->vertices->setColour(i, stoi(word));
+  int i = 0;                                    // índice para indereçar a cor i ao vértice i
+  while (getline(stream, word, ' ')) {          // quebra a string de colorações "colours" em palavras
+    g->vertices->setColour(i, stoi(word) - 1);  // colore o vértice com a cor da entrada com offset de -1 (uma vez que a entrada inicia na cor 1)
     i++;
   }
 }

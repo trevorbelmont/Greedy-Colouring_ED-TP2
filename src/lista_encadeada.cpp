@@ -4,8 +4,8 @@
 
 List::List() {
   size_ = 0;
-  maxSize_ = 100;
-  keys_ = new int[100];
+  maxSize_ = 0;
+  
 }
 
 List::List(int n) {

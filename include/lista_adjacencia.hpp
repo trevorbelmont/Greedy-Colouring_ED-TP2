@@ -5,7 +5,7 @@
 
 struct NodeList {
   int id = -1;
-  int colour = 0;
+  int colour = -1;
 
   List l;
 };

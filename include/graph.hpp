@@ -33,6 +33,8 @@ class Grafo {
 
   void ImprimeVizinhos(int v);
 
+  bool CheckGreedy(int ordered[][2]);
+
   AdjList* vertices;  // Lista de adjacência dinâmicamente alocada encapusular
 
  private:
