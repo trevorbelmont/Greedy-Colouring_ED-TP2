@@ -111,6 +111,7 @@ void merge(int v[][2], int left, int middle, int right) {
 }
 // Parte recursiva da ordenação via Merge Sort das linhas matriz de duas colunas basead0-se na segunda coluna
 void mergeSort(int v[][2], int begin, int end) {
+  end -= 1;
   // Condição de parada da recursão.
   if (begin < end) {  // Garante que o array a ser ordenado tenha tamanho mínimo >=2
 

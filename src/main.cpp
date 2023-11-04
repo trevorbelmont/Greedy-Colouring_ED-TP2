@@ -8,67 +8,82 @@
 using namespace std;
 
 // cria o grafo g a partir da entrada padrão.
-void createGraph(Grafo* g);
+char createGraph(Grafo* g);
 
 int main() {
-  string function = "-n";
-
   Grafo g;
 
-  createGraph(&g);
-  if (function == "-d") {
-    //   cout << "Testes básicos: " << endl;
-    cout << g.QuantidadeVertices() << endl;
-    cout << g.QuantidadeArestas() << endl;
-    cout << g.GrauMinimo() << endl;
-    cout << g.GrauMaximo() << endl;
-  } else if (function == "-n") {
-    //   cout << " Imprime vizinhos: " << endl;
-    for (int i = 0; i < g.QuantidadeVertices(); i++) {
-      g.ImprimeVizinhos(i);
-    }
+  char sort = createGraph(&g);
 
-    // Cria lista paralela de vértices por coloração
-    int cor[g.QuantidadeVertices()][2];
-    for (int i = 0; i < g.size(); i++) {
-      cor[i][1] = g.vertices->getColour(i);
-      cor[i][0] = g.vertices->getId(i);
-    }
-    cout << "---------------" << endl;
-    // selectionSort(cor, g.size());
-    //  0 4 5 1 3 2
-    heapSort(cor, g.size());
+  // Cria matriz de id por coloração para ordenação indireta dos vértices
+  int cor[g.QuantidadeVertices()][2];
 
-    for (int i = 0; i < g.QuantidadeVertices(); i++) {
-      g.ImprimeVizinhos(cor[i][0]);
-    }
-
-    bool greedy = g.CheckGreedy(cor);
-    cout << "CheckGredy :: " << greedy << " ";
-    if (!(!greedy && greedy)) {
-      cout << endl;
-      for (int i = 0; i < g.QuantidadeVertices(); i++) {
-        cout << cor[i][0] << " ";
-      }
-      cout << endl;
-    } else {
-      cout << endl;
-    }
-
-  } else if (function == "-k") {
-    cout << (g.QuantidadeArestas() == (g.QuantidadeVertices() * (g.QuantidadeVertices() - 1)) / 2) << endl;
+  // atribui cada id e coloração dos vértices a uma entrada do array/matriz "cor" a ser ordenado
+  for (int i = 0; i < g.size(); i++) {
+    cor[i][1] = g.vertices->getColour(i);
+    cor[i][0] = g.vertices->getId(i);
   }
+  //  0 4 5 1 3 2
+
+  switch (sort) {
+    case 'b':
+      bubbleSort(cor, g.QuantidadeVertices());
+      break;
+    case 's':
+      selectionSort(cor, g.QuantidadeVertices());
+      break;
+    case 'i':
+      insertionSort(cor, g.QuantidadeVertices());
+      break;
+    case 'm':
+      mergeSort(cor, 0, g.QuantidadeVertices());
+      break;
+    case 'q':
+      quickSort(cor, 0, g.QuantidadeVertices());
+      break;
+    case 'h':
+      heapSort(cor, g.QuantidadeVertices());
+      break;
+
+    default:
+      quickSort(cor, 0, g.QuantidadeVertices());
+      break;
+  }
+
+  heapSort(cor, g.size());
+
+  /* for (int i = 0; i < g.QuantidadeVertices(); i++) {
+    g.ImprimeVizinhos(cor[i][0]);
+  } */
+
+  bool greedy = g.CheckGreedy(cor);
+  cout << greedy;
+  if (greedy) {
+    cout << " ";
+    for (int j = 0; j < g.QuantidadeVertices(); j++) {
+      cout << cor[j][0] << " ";
+    }
+  }
+  cout << endl;
 
   return 0;
 }
 
-void createGraph(Grafo* g) {
-  int n;
-  string nn;
+char createGraph(Grafo* g) {
+  int n;   // receberá o número de vértices no grafo
+  char o;  // receberá o identificador de ordenador
+  string header;
+  getline(cin, header);  // pega a string inteira até a quebra de linha.
 
-  getline(cin, nn);
-  n = stoi(nn);
+  stringstream headStream(header);  // cria um stream de string.
+  string w;                         // a string que comportará a string  do get line picotada - uma palavra por vez
 
+  int k = 0;
+  while (getline(headStream, w, ' ')) {
+    if (k == 0) o = w[0];
+    if (k == 1) n = stoi(w);
+    k++;
+  }
   g->allocate(n);
 
   for (int i = 0; i < n; i++) {
@@ -105,6 +120,7 @@ void createGraph(Grafo* g) {
     g->vertices->setColour(i, stoi(word) - 1);  // colore o vértice com a cor da entrada com offset de -1 (uma vez que a entrada inicia na cor 1)
     i++;
   }
+  return o;
 }
 
 // testa as implementações das listas
