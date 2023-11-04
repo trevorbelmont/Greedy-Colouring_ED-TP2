@@ -158,34 +158,41 @@ void quickSort(int arr[][2], int low, int high) {
 }
 
 // HEAP SORT (heap mínimo)
+// Função para ajustar o heap máximo (inversão das condições)
 void heapify(int arr[][2], int col, int root, int n) {
   int largest = root;
   int left = 2 * root + 1;
   int right = 2 * root + 2;
 
+  // Verifica se a segunda entrada do filho esquerdo é maior que a do pai - ou ambas são iguais mas primeira entrada do filho esquerdo é maior
   if (left < n && (arr[left][1] > arr[largest][1] || (arr[left][1] == arr[largest][1] && arr[left][0] > arr[largest][0]))) {
     largest = left;
   }
 
+  // Verifica se a segunda entrada do filho direito é maior que a maior dos dois (filho esquerdo e pai) - ou se é igual à maior dos dois, porém tem primeira entrada maior.
   if (right < n && (arr[right][1] > arr[largest][1] || (arr[right][1] == arr[largest][1] && arr[right][0] > arr[largest][0]))) {
     largest = right;
   }
-
+  // Se o maior não for o pai, troca os elementos e continua o ajuste
   if (largest != root) {
-    swap(arr[root], arr[largest]);
+    swap(arr[root], arr[largest]);  // Troca os elementos usando a função swap
     heapify(arr, col, largest, n);
   }
 }
 
+// Função principal do Heap Sort
 void heapSort(int arr[][2], int col) {
   int n = col;
 
+  // Constrói o heap máximo
   for (int i = n / 2 - 1; i >= 0; i--) {
     heapify(arr, col, i, n);
   }
 
+  // Extrai os elementos do heap um por um e os coloca em ordem crescente
   for (int i = n - 1; i > 0; i--) {
     swap(arr[0], arr[i]);
+    // Chama heapify na raiz reduzida
     heapify(arr, col, 0, i);
   }
 }
