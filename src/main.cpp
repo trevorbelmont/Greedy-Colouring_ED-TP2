@@ -34,8 +34,9 @@ int main() {
       cor[i][1] = g.vertices->getColour(i);
       cor[i][0] = g.vertices->getId(i);
     }
-
-    bubbleSort(cor, g.size());
+    cout << "---------------" << endl;
+    selectionSort(cor, g.size());
+    // 0 4 5 1 3 2 
 
     for (int i = 0; i < g.QuantidadeVertices(); i++) {
       g.ImprimeVizinhos(cor[i][0]);
