@@ -35,8 +35,9 @@ int main() {
       cor[i][0] = g.vertices->getId(i);
     }
     cout << "---------------" << endl;
-    selectionSort(cor, g.size());
-    // 0 4 5 1 3 2
+    // selectionSort(cor, g.size());
+    //  0 4 5 1 3 2
+    heapSort(cor, g.size());
 
     for (int i = 0; i < g.QuantidadeVertices(); i++) {
       g.ImprimeVizinhos(cor[i][0]);
