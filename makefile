@@ -64,7 +64,7 @@ run: ${target}
 # Apaga apenas os .o e executáveis previstos neste makefile 
 # (e também qualquer objeto nomeado por um header template)
 clean:
-	rm ${target}; rm -r ${objetcts}; rm $(patsubst ${incld}/%.hpp, ${obj}/%.o,${headers});
+	rm ${target}; rm -r ${objetcts}; rm $(patsubst ${incld}/%.hpp, ${obj}/%.o,${headers}); rm gmon.out; rm bin/gmon.out
 
 # No encadeamento de comandos em uma regra a separação por ; ou  && tende a ser essencial
 # Use ; para separar comandos com execuções independentes e && para encadear um comando que depende do sucesso do anterior

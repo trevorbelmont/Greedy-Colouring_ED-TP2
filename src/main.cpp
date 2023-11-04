@@ -46,16 +46,10 @@ int main() {
       break;
 
     default:
-      quickSort(cor, 0, g.QuantidadeVertices());
+      heapSort(cor, g.QuantidadeVertices());
       break;
   }
-
-  heapSort(cor, g.size());
-
-  /* for (int i = 0; i < g.QuantidadeVertices(); i++) {
-    g.ImprimeVizinhos(cor[i][0]);
-  } */
-
+ 
   bool greedy = g.CheckGreedy(cor);
   cout << greedy;
   if (greedy) {
@@ -121,49 +115,4 @@ char createGraph(Grafo* g) {
     i++;
   }
   return o;
-}
-
-// testa as implementações das listas
-int checkLists() {
-  List l;
-  cout << "size inicial = " << l.size() << endl;
-  for (int i = 0; i < 13; i++) {
-    l.insert(i);
-  }
-
-  cout << "size = " << l.size() << endl;
-  cout << endl;
-  l.print();
-  cout << endl;
-
-  l.removeLast();
-  cout << "size = " << l.size() << endl;
-  cout << endl;
-  l.print();
-
-  cout << endl;
-
-  cout << "get(6) = " << l.get(6) << endl;
-
-  l.~List();
-  l.insert(-400);
-  cout << l.get(0) << endl;
-
-  cout << "---------------------------------------" << endl;
-  cout << endl;
-
-  AdjList adj;
-  adj.insert(6);
-  adj.update(1, 4);
-  adj.update(4, 0);
-  adj.update(5, 1);
-  adj.update(4, 3);
-
-  for (int i = 0; i < adj.size(); i++) {
-    cout << i << ": ";
-    adj.get(i)->print();
-    cout << endl;
-  }
-  adj.~AdjList();
-  return 0;
 }

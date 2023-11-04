@@ -111,7 +111,6 @@ void merge(int v[][2], int left, int middle, int right) {
 }
 // Parte recursiva da ordenação via Merge Sort das linhas matriz de duas colunas basead0-se na segunda coluna
 void mergeSort(int v[][2], int begin, int end) {
-  end -= 1;
   // Condição de parada da recursão.
   if (begin < end) {  // Garante que o array a ser ordenado tenha tamanho mínimo >=2
 
@@ -145,8 +144,7 @@ int partition(int arr[][2], int low, int high) {
 
 // Parte recursiva do do Quick Sort
 void quickSort(int arr[][2], int low, int high) {
-  high -= 1;
-
+ 
   // Condição de parada
   if (low < high) {  // Garante que o subarray a ser particionado tenha tamanho mínimo >= 2;
     // Encontra a posição do pivô após a partição

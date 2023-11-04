@@ -6,11 +6,12 @@
 using namespace std;
 
 int main(){
-    int n, m;
-    cin >> n >> m;
+    int n, m, y;
+    cin >> n >> m >> y;
     Random::SetSeed();
     InstanceGenerator* ig = new InstanceGenerator();
     // Altere aqui os atributos da instancia que deseja criar
-    cout << ig->NewInstance(n, m, true);
+    //gera estância com  valores vértices, arestas, gulosa
+    cout << ig->NewInstance(n, m, !y);
     delete ig;
 }
