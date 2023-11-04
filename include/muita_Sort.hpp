@@ -47,13 +47,14 @@ void selectionSort(int v[][2], int rows) {
       if (v[j][1] < v[min][1]) {  // Atualiza o menor elemento, se necessário
         min = j;
       } else if (v[j][1] == v[min][1]) {
-        min = (v[min][0] < v[j][0]) ? min : j;
+        min = (v[j][0] < v[min][0]) ? j : min;
       }
-      // ao fim do loop, se o menor elemento não era o primeiro da partição não ordenada, troca os dois
-      if (min != i) {
-        swap(v[i], v[min]);
-      }
+    }
+    // ao fim do loop interno, se o menor elemento não era o primeiro da partição não ordenada, troca os dois
+    if (min != i) {
+      swap(v[i], v[min]);
     }
   }
 }
+
 #endif

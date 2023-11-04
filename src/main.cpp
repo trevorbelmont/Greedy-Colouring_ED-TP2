@@ -36,7 +36,7 @@ int main() {
     }
     cout << "---------------" << endl;
     selectionSort(cor, g.size());
-    // 0 4 5 1 3 2 
+    // 0 4 5 1 3 2
 
     for (int i = 0; i < g.QuantidadeVertices(); i++) {
       g.ImprimeVizinhos(cor[i][0]);
