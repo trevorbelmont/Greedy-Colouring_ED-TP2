@@ -41,7 +41,7 @@ int main() {
     case 'q':
       quickSort(cor, 0, g.QuantidadeVertices());
       break;
-    case 'h':
+    case 'p':
       heapSort(cor, g.QuantidadeVertices());
       break;
 
