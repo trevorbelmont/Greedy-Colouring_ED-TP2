@@ -111,7 +111,7 @@ bool Grafo::CheckGreedy(int ord[][2]) {
 
     //
     if (qtasCores < corMax - 1) {
-      cout << " Out in " << ord[i][0] << " (" << qtasCores << "/" << corMax << ")" << endl;
+      // cout << " Out in " << ord[i][0] << " (" << qtasCores << "/" << corMax << ")" << endl;
       return false;
     } else {
       i++;

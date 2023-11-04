@@ -145,7 +145,7 @@ int partition(int arr[][2], int low, int high) {
 
 // Parte recursiva do do Quick Sort
 void quickSort(int arr[][2], int low, int high) {
-  // high -=1;
+  high -= 1;
 
   // Condição de parada
   if (low < high) {  // Garante que o subarray a ser particionado tenha tamanho mínimo >= 2;
