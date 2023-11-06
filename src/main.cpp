@@ -8,12 +8,31 @@
 using namespace std;
 
 // cria o grafo g a partir da entrada padrão.
-char createGraph(Grafo* g);
+void createGraph(Grafo* g);
 
 int main() {
   Grafo g;
+  int n;   // receberá o número de vértices no grafo
+  char sort;  // receberá o identificador de ordenador
+  string header;
+  getline(cin, header);  // pega a string inteira até a quebra de linha.
 
-  char sort = createGraph(&g);
+  stringstream headStream(header);  // cria um stream de string.
+  string w;                         // a string que comportará a string  do get line picotada - uma palavra por vez
+
+  int k = 0;
+  while (getline(headStream, w, ' ')) {
+    if (k == 0) sort = w[0];
+    if (k == 1) n = stoi(w);
+    k++;
+  }
+  g.allocate(n);
+
+  for (int i = 0; i < n; i++) {
+    g.InsereVertice(i);
+  }
+
+  createGraph(&g);
 
   // Cria matriz de id por coloração para ordenação indireta dos vértices
   int cor[g.QuantidadeVertices()][2];
@@ -36,10 +55,10 @@ int main() {
       insertionSort(cor, g.QuantidadeVertices());
       break;
     case 'm':
-      mergeSort(cor, 0, g.QuantidadeVertices());
+      mergeSort(cor, 0, g.QuantidadeVertices()-1);
       break;
     case 'q':
-      quickSort(cor, 0, g.QuantidadeVertices());
+      quickSort(cor, 0, g.QuantidadeVertices()-1);
       break;
     case 'p':
       heapSort(cor, g.QuantidadeVertices());
@@ -63,29 +82,11 @@ int main() {
   return 0;
 }
 
-char createGraph(Grafo* g) {
-  int n;   // receberá o número de vértices no grafo
-  char o;  // receberá o identificador de ordenador
-  string header;
-  getline(cin, header);  // pega a string inteira até a quebra de linha.
-
-  stringstream headStream(header);  // cria um stream de string.
-  string w;                         // a string que comportará a string  do get line picotada - uma palavra por vez
-
-  int k = 0;
-  while (getline(headStream, w, ' ')) {
-    if (k == 0) o = w[0];
-    if (k == 1) n = stoi(w);
-    k++;
-  }
-  g->allocate(n);
-
-  for (int i = 0; i < n; i++) {
-    g->InsereVertice(i);
-  }
+void createGraph(Grafo* g) {
+  
 
   // for pra criar as arestas de cada veŕtice.
-  for (int j = 0; j < n; j++) {
+  for (int j = 0; j < g->QuantidadeVertices(); j++) {
     string v;
     getline(cin, v);  // pega a string inteira até a quebra de linha.
 
@@ -114,5 +115,5 @@ char createGraph(Grafo* g) {
     g->vertices->setColour(i, stoi(word) - 1);  // colore o vértice com a cor da entrada com offset de -1 (uma vez que a entrada inicia na cor 1)
     i++;
   }
-  return o;
+  
 }
