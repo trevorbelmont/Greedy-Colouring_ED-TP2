@@ -144,7 +144,8 @@ int partition(int arr[][2], int low, int high) {
 
 // Parte recursiva do do Quick Sort
 void quickSort(int arr[][2], int low, int high) {
-   // Condição de parada
+ 
+  // Condição de parada
   if (low < high) {  // Garante que o subarray a ser particionado tenha tamanho mínimo >= 2;
     // Encontra a posição do pivô após a partição
     int pi = partition(arr, low, high);
@@ -194,8 +195,5 @@ void heapSort(int arr[][2], int col) {
     heapify(arr, col, 0, i);
   }
 }
-
-// COUNTING SORT
-// Implementa uma adaptação do counting sort utilizando uma lista de adjacências auxiliar 
 
 #endif

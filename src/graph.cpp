@@ -97,18 +97,20 @@ bool Grafo::CheckGreedy(int ord[][2]) {
       neighborColours[j] = false;  // inicializa toda a checklist de cores com falso;
     }
 
-    // Itera pela lista de adjacência do vértice i, através do ponteiro "vizin". j é o número de vértices adjacentes a i;
+    // Itera pela lista de adjacência do vértice i, através do ponteiro de lista "vizin".
     for (int j = 0; j < vizin->size(); j++) {
       int corVizin = vertices->getColour(vizin->get(j));  // recebe a cor do vizinho que se está checando
 
-      // Checa se a cor dos vértices vizinhos é menor que a cor do vértice atual, corMax.
+      // Checa se a cor do vértice vizinho é menor que a cor do vértice atual, corMax.
+      // caso sim, marca essa cor na check-list booleana.
       if (corVizin < corMax) {
-        neighborColours[corVizin] = true;  // caso a cor do vizinho seja inferior ao atual, marca na check-list booleana.
+        neighborColours[corVizin] = true;  
       } 
     }
 
     for (int j = 0; j < corMax; j++) {
       if (neighborColours[j] == false) {
+  cout << "vertice: " << ord[i][0] << "   " << j <<  "/" << corMax << endl;
         return false;
       }
     }

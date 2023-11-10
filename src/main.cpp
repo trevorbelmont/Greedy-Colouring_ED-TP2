@@ -26,6 +26,7 @@ int main() {
     if (k == 1) n = stoi(w);
     k++;
   }
+  
   g.allocate(n);
 
   for (int i = 0; i < n; i++) {
