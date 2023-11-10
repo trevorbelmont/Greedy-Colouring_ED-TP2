@@ -8,7 +8,7 @@
 using namespace std;
 
 // cria o grafo g a partir da entrada padrão.
-void createGraph(Grafo* g);
+int createGraph(Grafo* g);
 
 int main() {
   Grafo g;
@@ -33,7 +33,7 @@ int main() {
     g.InsereVertice(i);
   }
 
-  createGraph(&g);
+  int maxColour = createGraph(&g);
 
   // Cria matriz de id por coloração para ordenação indireta dos vértices
   int cor[g.QuantidadeVertices()][2];
@@ -83,7 +83,7 @@ int main() {
   return 0;
 }
 
-void createGraph(Grafo* g) {
+int createGraph(Grafo* g) {
   
 
   // for pra criar as arestas de cada veŕtice.
@@ -111,10 +111,15 @@ void createGraph(Grafo* g) {
   stringstream stream(colours);  // cria um stream de string.
   string word;                   // a string que comportará a string  do get line picotada - uma palavra por vez
 
+  int maxColour = 0; // armazena a maior cor presente no grafo (para retornar na fuanção).
+
   int i = 0;                                    // índice para indereçar a cor i ao vértice i
   while (getline(stream, word, ' ')) {          // quebra a string de colorações "colours" em palavras
-    g->vertices->setColour(i, stoi(word) - 1);  // colore o vértice com a cor da entrada com offset de -1 (uma vez que a entrada inicia na cor 1)
+    int colour = stoi(word) - 1;
+    g->vertices->setColour(i,colour );  // colore o vértice com a cor da entrada com offset de -1 (uma vez que a entrada inicia na cor 1)
+    maxColour = (colour > maxColour) ? colour : maxColour; // Testa e atualiza maxColour
     i++;
   }
+  return maxColour;
   
 }
