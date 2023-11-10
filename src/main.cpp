@@ -66,7 +66,7 @@ int main() {
       break;
 
     default:
-      heapSort(cor, g.QuantidadeVertices());
+      countingSort(cor, g.QuantidadeVertices(),maxColour);
       break;
   }
  

@@ -1,6 +1,8 @@
 #ifndef MUITA_SORT_HPP
 #define MUITA_SORT_HPP
 
+#include "lista_adjacencia.hpp"
+
 // Método que troca elementos de lugar. Só pra facilitar leitura.
 void swap(int a[2], int b[2]) {
   int aux0 = a[0];
@@ -144,7 +146,6 @@ int partition(int arr[][2], int low, int high) {
 
 // Parte recursiva do do Quick Sort
 void quickSort(int arr[][2], int low, int high) {
- 
   // Condição de parada
   if (low < high) {  // Garante que o subarray a ser particionado tenha tamanho mínimo >= 2;
     // Encontra a posição do pivô após a partição
@@ -193,6 +194,27 @@ void heapSort(int arr[][2], int col) {
     swap(arr[0], arr[i]);
     // Chama heapify na raiz reduzida
     heapify(arr, col, 0, i);
+  }
+}
+
+// Adaptação de Counting Sort
+void countingSort(int arr[][2], int nRows, int nColours) {
+  AdjList aux(nColours);
+  for (int i = 0; i < nColours; i++) {
+    aux.insert(i);
+  }
+  for (int j = 0; j < nRows; j++) {
+    aux.update(arr[j][1], arr[j][0]);
+  }
+
+  int i = 0;
+  for (int k = 0; k < nColours;) {
+    List* listColour = aux.get(k);
+    for (int j = 0; j < listColour->size(); j++) {
+      arr[i][0] = listColour->get(j);
+      arr[i][1] = k;
+      i++;
+    }
   }
 }
 
