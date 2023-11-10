@@ -66,7 +66,7 @@ int main() {
       break;
 
     default:
-      countingSort(cor, g.QuantidadeVertices(),maxColour);
+      countingSort(cor, g.QuantidadeVertices(),maxColour+1);
       break;
   }
  

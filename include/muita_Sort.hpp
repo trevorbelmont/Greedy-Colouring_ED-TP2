@@ -1,6 +1,7 @@
 #ifndef MUITA_SORT_HPP
 #define MUITA_SORT_HPP
 
+#include "iostream"
 #include "lista_adjacencia.hpp"
 
 // Método que troca elementos de lugar. Só pra facilitar leitura.
@@ -208,12 +209,13 @@ void countingSort(int arr[][2], int nRows, int nColours) {
   }
 
   int i = 0;
-  for (int k = 0; k < nColours;) {
+  for (int k = 0; k < nColours; k++) {
     List* listColour = aux.get(k);
     for (int j = 0; j < listColour->size(); j++) {
       arr[i][0] = listColour->get(j);
       arr[i][1] = k;
       i++;
+     // std::cout << i << " " << std::endl;
     }
   }
 }
