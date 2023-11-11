@@ -18,8 +18,10 @@ Grafo::Grafo(int n) {
 }
 
 Grafo::~Grafo() {
-  vertices->~AdjList();
-  // delete[] vertices;
+  // vertices->~AdjList();
+  delete vertices;
+
+  // Valgrind apontou que apenas liberando a Lista de Adjcência é minimiza o tanto de memória vazando. Foi tetado apenas liberação da AdjList, "vertice", explicitamente e usando as duas linhas - essa foi a solução melhor.
 }
 
 void Grafo::allocate(int n) {
@@ -104,13 +106,13 @@ bool Grafo::CheckGreedy(int ord[][2]) {
       // Checa se a cor do vértice vizinho é menor que a cor do vértice atual, corMax.
       // caso sim, marca essa cor na check-list booleana.
       if (corVizin < corMax) {
-        neighborColours[corVizin] = true;  
-      } 
+        neighborColours[corVizin] = true;
+      }
     }
 
     for (int j = 0; j < corMax; j++) {
       if (neighborColours[j] == false) {
-  cout << "vertice: " << ord[i][0] << "   " << j <<  "/" << corMax << endl;
+        cout << "vertice: " << ord[i][0] << "   " << j << "/" << corMax << endl;
         return false;
       }
     }

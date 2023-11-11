@@ -18,6 +18,7 @@ class List {
   int get(int i);
   void print();
   bool empty();
+  // Remove (torna inacessível) a última entrada da lista sem retornar seu valor.
   void removeLast();
 
  private:

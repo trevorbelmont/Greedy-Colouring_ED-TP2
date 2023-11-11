@@ -3,7 +3,7 @@
 #include "lista_encadeada.hpp"
 
 AdjList::AdjList() {
-    maxSize_ = 0;
+  maxSize_ = 0;
   size_ = 0;
 }
 AdjList::AdjList(int n) {
@@ -46,10 +46,13 @@ bool AdjList::empty() {
 }
 
 void AdjList::insert(int k) {
-  if (maxSize_ == 0) {  // Se alista de adjacências não foi inicializada, inicializa alocando 100 nodelists
+  // Se alista de adjacências não foi inicializada,
+  // inicializa alocando 100 nodelists
+  if (maxSize_ == 0) {
     reallocate(100);
     maxSize_ = 100;
   }
+  // Insere o novo elemento na última posição - com o id designado, k - e atualiza o size_;
   if (size_ < maxSize_) {
     adj_[size_].id = k;
     size_++;
@@ -110,11 +113,38 @@ int AdjList::getColour(int vertex) {
   }
   return -1;
 }
+
+int AdjList::removeLast() {
+  // Se não estiver vazia retorna o id do vértice a ser removido.
+  if (size_ > 0) {
+    int idRemoved = getId(size_ - 1);
+    size_--;
+    return idRemoved;
+
+  }  // Caso a AdjList esteja vazia, retorna "-404",
+  // assumindo que os ids dos vértices são, por definição, números naturais.
+  else {
+    return -404;
+  }
+  // =============== NOTA sobre o método removeLast():  ====================//
+  //
+  // Este método não devolve uma CÒPIA do vértice removido.
+  // Por cuidado uma cópia deste nodo poderia ser retornado, aumentando a complexidade da função de remoção.
+  // Ainda que o vértice "removido" não é de fato apagado (apenas se torna inacessível),
+  // este vértice não necessariamente poderia ser devolvido por ponteiro ou referência.
+  // Isso porque essa seria uma escolha perigosa no manuseio de vértices em operações sequenciais.
+  // Dito isso, sobrecarregar este método com um de natureza NodeList que devolvesse uma CÓPIA daquilo que se tornou inacessível,
+  // poderia ser bastante útil. Porém não é necessariamente uma demanda - uma vez que pode ser feito usando a interface pública em 2 linhas de código.
+}
+
 AdjList::~AdjList() {
+  // Libera e destrói todas as listas de vizinhos em cada NodeList
   for (int i = 0; i < maxSize_; i++) {
     adj_[i].l.~List();
   }
+  // Libera o ponteiro  adj_, destuindo todos os NodeLists.
   delete[] adj_;
 
+  //Retorna a AdjList para forma não inicializada.
   size_ = maxSize_ = 0;
 }

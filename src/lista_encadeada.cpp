@@ -67,11 +67,13 @@ void List::print() {
   }
   std::cout << std::endl;
 }
+
 void List::removeLast() {
-  if (size() > 0) {
+  if (size() > 0) {   
     size_--;
   }
 }
+
 
 List::~List() {
   if (maxSize_ == 0) {
