@@ -23,11 +23,11 @@ class AdjList {
   // Realoca n Nodelists no array de da lista de adjacência. Preser
   void reallocate(int n);
 
-  // Insere n vértices sem atribuir valores
-  void multInsert(int n);
+  // Insere n vértices cujas listas de adjacências tem tamanho m.
+  void multInsert(int n, int m);
   
-  // Insere um novo vértice na última posiçaõ disponível com o id passado coo parâmetro, k.
-  void insert(int k);
+  // Insere um novo vértice ao fim da lista com id igual a k e lista de adjcência de tamanho "subList_sizes".
+  void insert(int k, int subList_sizes);
   // Atualiza a lista de vizinhos do "vertex" (já existente) com o vizinho "value"
   void update(int vertex, int value);
   // Checa vacuidade.

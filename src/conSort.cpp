@@ -201,14 +201,13 @@ void heapSort(int arr[][2], int nRows) {
 
 // Adaptação de Counting Sort
 // Precisa Otimizar ¬ ¬ ¬
-void countingSort(int arr[][2], int nRows, int nColours) {
+int countingSort(int arr[][2], int nRows, int nColours) {
   AdjList aux(nColours);  // Uso uma lista de adjacência (AdjList) como estrutura auxiliar
 
   // Cria um proxy/cabeça de lista (vértice-proxy) para cada cor presente no grafo
-  for (int i = 0; i < nColours; i++) {
-    aux.insert(i);
+    aux.multInsert(nColours, nRows);
     // obs: Ainda não há uma função (insert) capaz de inicializar as listas (de vizinhos) atualizando automaticamente (at once)
-  }
+  
 
   // Passa pelos nRows vértices do grafo recebido em ordem crescente
   // Lançando seus Ids nas respectivas cores da Lista de adjacência auxiliar
@@ -231,4 +230,5 @@ void countingSort(int arr[][2], int nRows, int nColours) {
       i++;
     }
   }
+  return i;
 }

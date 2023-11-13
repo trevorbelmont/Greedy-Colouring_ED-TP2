@@ -39,7 +39,7 @@ int Grafo::size() {
 }
 
 void Grafo::InsereVertice(int k) {
-  vertices->insert(k);
+  vertices->insert(k,0);
   size_++;
 }
 
@@ -113,7 +113,6 @@ bool Grafo::CheckGreedy(int ord[][2]) {
 
     for (int j = 0; j < corMax; j++) {
       if (neighborColours[j] == false) {
-        cout << "vertice: " << ord[i][0] << "   " << j << "/" << corMax << endl;
         return false;
       }
     }

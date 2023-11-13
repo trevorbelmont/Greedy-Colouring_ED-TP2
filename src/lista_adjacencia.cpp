@@ -45,24 +45,27 @@ bool AdjList::empty() {
   return size_ == 0;
 }
 
-void AdjList::insert(int k) {
+void AdjList::insert(int k, int subList_size) {
   // Se alista de adjacências não foi inicializada,
   // inicializa alocando 100 nodelists
   if (maxSize_ == 0) {
     reallocate(100);
     maxSize_ = 100;
   }
-  // Insere o novo elemento na última posição - com o id designado, k - e atualiza o size_;
+  // Insere o novo elemento na última posição - com o id designado, k;
   if (size_ < maxSize_) {
     adj_[size_].id = k;
+    if (subList_size > 0) {
+     adj_ [size_].l.reallocate(subList_size);
+    }
     size_++;
   }
 }
 
-void AdjList::multInsert(int n) {
+void AdjList::multInsert(int n, int subList_sizes) {
   int i = 0;
   while (i < n && size_ < maxSize_) {
-    insert(i);
+    insert(i, subList_sizes);
     i++;
   }
 }
@@ -145,6 +148,6 @@ AdjList::~AdjList() {
   // Libera o ponteiro  adj_, destuindo todos os NodeLists.
   delete[] adj_;
 
-  //Retorna a AdjList para forma não inicializada.
+  // Retorna a AdjList para forma não inicializada.
   size_ = maxSize_ = 0;
 }
