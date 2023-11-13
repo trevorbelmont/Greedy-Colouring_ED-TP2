@@ -1,17 +1,37 @@
-#include "lista_encadeada.hpp"
+#include "lista_alocada.hpp"
 
 #include <iostream>
 
 List::List() {
   size_ = 0;
   maxSize_ = 0;
-  
 }
 
 List::List(int n) {
   size_ = 0;
   keys_ = new int[n];
   maxSize_ = n;
+}
+
+bool List::forceSet(int index, int value) {
+  if (index >= 0 && index < maxSize_) {
+    keys_[index] = value;
+    if (index < size_) {
+      return true;  // Se alguma informação previamente inicializada foi ALTERADA
+    } else {
+      size_ = index + 1;  // Atualiza tamanho. !!! Pode tornar lixo de memória acessível.
+      return false;       // Se nenhuma informação foi ALTERADA.
+    }
+  }
+  return false;  // Índice inválido. Não houve alterações
+}
+
+bool List::update(int index, int value) {
+  if (index >= 0 && index < size_) {
+    keys_[index] = value;
+    return true;
+  }
+  return false;  // Índice inválido. Não houve alterações
 }
 
 void List::reallocate(int n) {
@@ -46,11 +66,22 @@ bool List::empty() {
   return (size_ == 0);
 }
 
-void List::insert(int key) {
+bool List::insert(int key) {
   if (size_ < maxSize_) {
     keys_[size_] = key;
     size_++;
+    return true;
   }
+  return false;  // Caso não haja espaço alocado disponível.
+}
+
+// defaultValue assume o valor zero, quando não explicitado na chamada.
+int List::multInsert(int n, int defaultValue = 0) {
+  int sucess = 0;
+  while (sucess < n && insert(defaultValue)) {  // Tenta inserir os n elementos enquanto for possível inserir elementos.
+    sucess++;
+  }
+  return sucess;  // Retorna o número de elementos inseridos com sucess;
 }
 
 int List::get(int i) {
@@ -69,11 +100,10 @@ void List::print() {
 }
 
 void List::removeLast() {
-  if (size() > 0) {   
+  if (size() > 0) {
     size_--;
   }
 }
-
 
 List::~List() {
   if (maxSize_ == 0) {

@@ -2,13 +2,31 @@
 #include <sstream>
 #include <string>
 
+#include "conSort.hpp"
 #include "graph.hpp"
-#include "muita_Sort.hpp"
 
 using namespace std;
 
 // cria o grafo g a partir da entrada padrão.
 int createGraph(Grafo* g);
+
+int testList() {
+  List l(10);
+  l.multInsert(2, -123);
+  cout << l.update(2, 2) << endl;
+  for (int i = 0; i < 5; i++) {
+    cout << l.update(i, i) << " , ";
+  }
+  cout << endl;
+  l.print();
+  cout << l.size() << endl;
+  cout << "forceset" << l.forceSet(0, 10) << l.forceSet(1, 11) << l.forceSet(2, 12) << l.forceSet(3, 13) << endl;
+  l.print();
+  cout << "forceset" << l.forceSet(2, -2) << l.forceSet(1, -1) << l.forceSet(0, -100) << l.forceSet(-1, -1) << endl;
+  l.print();
+  cout << l.size() << endl;
+  return 0;
+}
 
 int main() {
   Grafo g;
@@ -101,7 +119,7 @@ int createGraph(Grafo* g) {
       if (i > 0) {  // pula a primeira entrada da linha (pois essa é a entrada do número de vizinhos)
         g->InsereAresta(j, stoi(word));
       } else {
-        g->vertices->get(i)->reallocate(stoi(word)); // ¬ ¬ VAzamento de memória no "reallocate" (resolver)
+        g->vertices->get(i)->reallocate(stoi(word));  // ¬ ¬ VAzamento de memória no "reallocate" (resolver)
       }
       i++;
     }

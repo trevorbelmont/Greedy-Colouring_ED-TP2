@@ -4,23 +4,26 @@
 // #include <iostream>
 
 #include "lista_adjacencia.hpp"
-/*  Você pode inserir os includes necessários para que sua classe funcione.
- * Nenhuma outra alteração neste arquivo é permitida
- */
 
 class Grafo {
  public:
   // Cria grafo sem alocar memória ou limitar número de vértices.
   Grafo();
-  // Cria grafo com capacidade inicial para "n" vértices (alocados e instanciados, PORÉM NÃO INICIALIZADOS).
+  // Cria grafo com capacidade inicial para "n" vértices (alocados e declarados, PORÉM NÃO INICIALIZADOS).
   Grafo(int n);
 
   // Chama destrutor da Lista de Adjacênias.
   ~Grafo();
 
+  // Usado para alocar ou mudar a quantidade de memória alocada para os n vértices de grafo. 
+  // Útil para declarados grafos com array de nodos apenas declarados. Não faz back up dos nodos.
   void allocate(int n);
 
+  // Equivale a Grafo.QuantidadeVertices();
   int size();
+
+  // Retorna a capacidade máxima suportada do Grafo. Ou seja, quantos nodos ele comporta.
+  int maxSize();
 
   // Insere vértice no grafo com chave de valor k
   void InsereVertice(int k);

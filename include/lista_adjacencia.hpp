@@ -1,7 +1,7 @@
 #ifndef LISTA_ADJACENCIA_HPP
 #define LISTA_ADJACENCIA_HPP
 
-#include "lista_encadeada.hpp"
+#include "lista_alocada.hpp"
 
 // Essa estrutura, NodeList, é aquela que representa cada vértice, 
 // Essa implement. de lista de adjcência é básicamente um array sequencial e dinâmico de NodeLists.

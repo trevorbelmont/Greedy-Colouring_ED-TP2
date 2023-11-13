@@ -1,6 +1,6 @@
 #include "lista_adjacencia.hpp"
 
-#include "lista_encadeada.hpp"
+#include "lista_alocada.hpp"
 
 AdjList::AdjList() {
   maxSize_ = 0;

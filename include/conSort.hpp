@@ -37,7 +37,6 @@ void heapify(int arr[][2], int col, int root, int n);
 void heapSort(int arr[][2], int col);
 
 // Adaptação de Counting Sort
-// Precisa Otimizar ¬ ¬ ¬
 void countingSort(int arr[][2], int nRows, int nColours);
 
 #endif

@@ -1,5 +1,5 @@
 
-#include "muita_Sort.hpp"
+#include "conSort.hpp"
 
 // Método que troca elementos de lugar. Só pra facilitar leitura.
 void swap(int a[2], int b[2]) {
@@ -145,7 +145,7 @@ int partition(int arr[][2], int low, int high) {
 // Parte recursiva do do Quick Sort
 void quickSort(int arr[][2], int low, int high) {
   // Condição de parada
-  if (low < high) {  // Garante que o subarray a ser particionado tenha tamanho mínimo >= 2;
+  if (low < high) {  // Garante que o subarray a ser particionado tenha tamanho mínimo. leia-se: size >= 2;
     // Encontra a posição do pivô após a partição
     int pi = partition(arr, low, high);
 
@@ -156,68 +156,72 @@ void quickSort(int arr[][2], int low, int high) {
 }
 
 // HEAP SORT (heap mínimo)
-// Função para ajustar o heap máximo (inversão das condições)
-void heapify(int arr[][2], int col, int root, int n) {
+//
+// Função recursiva para ajustar o heap máximo
+// Seus parâmetros são o ponteiro da matriz, número de linhas a serem ordenadas (nRows), o número de colunas da matriz a se ordenar (nRows),
+// a raíz da subárvore (root), e o índice da última folha da sub-árvore (n, que é alterado na chamada)
+void heapify(int arr[][2], int nRows, int root, int n) {
   int largest = root;
   int left = 2 * root + 1;
   int right = 2 * root + 2;
 
-  // Verifica se a segunda entrada do filho esquerdo é maior que a do pai - ou ambas são iguais mas primeira entrada do filho esquerdo é maior
-  if (left < n && (arr[left][1] > arr[largest][1] || (arr[left][1] == arr[largest][1] && arr[left][0] > arr[largest][0]))) {
+  // Verifica se a segunda entrada do filho esquerdo é maior que a do pai
+  // ou se ambas são iguais mas primeira entrada do filho esquerdo é maior
+  if (left < n && (arr[left][1] > arr[largest][1] 
+  || (arr[left][1] == arr[largest][1] && arr[left][0] > arr[largest][0]))) {
     largest = left;
   }
 
-  // Verifica se a segunda entrada do filho direito é maior que a maior dos dois (filho esquerdo e pai) - ou se é igual à maior dos dois, porém tem primeira entrada maior.
+  // Verifica se a segunda entrada do filho direito é maior que a maior dos dois (filho esquerdo e pai)
+  // ou se é igual à maior dos dois, porém tem primeira entrada maior.
   if (right < n && (arr[right][1] > arr[largest][1] || (arr[right][1] == arr[largest][1] && arr[right][0] > arr[largest][0]))) {
     largest = right;
   }
   // Se o maior não for o pai, troca os elementos e continua o ajuste
   if (largest != root) {
     swap(arr[root], arr[largest]);  // Troca os elementos usando a função swap
-    heapify(arr, col, largest, n);
+    heapify(arr, nRows, largest, n);
   }
 }
 
 // Função principal do Heap Sort
-void heapSort(int arr[][2], int col) {
-  int n = col;
-
+void heapSort(int arr[][2], int nRows) {
   // Constrói o heap máximo
-  for (int i = n / 2 - 1; i >= 0; i--) {
-    heapify(arr, col, i, n);
+  for (int i = nRows / 2 - 1; i >= 0; i--) {
+    heapify(arr, nRows, i, nRows);
   }
 
-  // Extrai os elementos do heap um por um e os coloca em ordem crescente
-  for (int i = n - 1; i > 0; i--) {
+  // Re-heapifica de baixo para cima
+  for (int i = nRows - 1; i > 0; i--) {
     swap(arr[0], arr[i]);
     // Chama heapify na raiz reduzida
-    heapify(arr, col, 0, i);
+    heapify(arr, nRows, 0, i); //
   }
 }
 
 // Adaptação de Counting Sort
 // Precisa Otimizar ¬ ¬ ¬
 void countingSort(int arr[][2], int nRows, int nColours) {
-  AdjList aux(nColours); // Uso uma lista de adjacência (AdjList) como estrutura auxiliar
+  AdjList aux(nColours);  // Uso uma lista de adjacência (AdjList) como estrutura auxiliar
 
   // Cria um proxy/cabeça de lista (vértice-proxy) para cada cor presente no grafo
   for (int i = 0; i < nColours; i++) {
-    aux.insert(i); 
-    // obs: Ainda não há uma função (insert) capaz de inicializar as listas (de vizinhos) atualizando automaticamente (at once) 
+    aux.insert(i);
+    // obs: Ainda não há uma função (insert) capaz de inicializar as listas (de vizinhos) atualizando automaticamente (at once)
   }
 
   // Passa pelos nRows vértices do grafo recebido em ordem crescente
   // Lançando seus Ids nas respectivas cores da Lista de adjacência auxiliar
   for (int j = 0; j < nRows; j++) {
     aux.update(arr[j][1], arr[j][0]);
-    //atualiza a lista da cor do veŕtice j, adicionando o id deste vértice j
+    // atualiza a lista da cor do veŕtice j, adicionando o id deste vértice j
   }
 
-// Passa por todas as cores na AdjList auxiliar lançando seus vizinhos de volta na matriz arr
-// Dada a especificação da entrada (de construção do grafo),
-// essa atualização da matriz arr[][] (matriz a ser ordenada) por definição prima pelo critério de desempate. 
-// Como o critério de desempate é uma decorrência auotmática da entrada ordenada dos vértices,
-// Caso a entrada não fosse ordenada, este método de ordenação necessariamente deveria ser revisto
+  // Passa por todas as cores na AdjList auxiliar lançando seus vizinhos de volta na matriz arr
+  // Dada a especificação da entrada (de construção do grafo),
+  // essa atualização da matriz arr[][] (matriz a ser ordenada) por definição prima pelo critério de desempate.
+  // Como o critério de desempate é uma decorrência auotmática da entrada ordenada dos vértices,
+  // Caso a entrada não fosse ordenada, este método de ordenação necessariamente deveria ser revisto
   int i = 0;
   for (int k = 0; k < nColours; k++) {
     List* listColour = aux.get(k);
@@ -225,7 +229,6 @@ void countingSort(int arr[][2], int nRows, int nColours) {
       arr[i][0] = listColour->get(j);
       arr[i][1] = k;
       i++;
-   
     }
   }
 }

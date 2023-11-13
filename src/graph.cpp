@@ -24,6 +24,7 @@ Grafo::~Grafo() {
   // Valgrind apontou que apenas liberando a Lista de Adjcência é minimiza o tanto de memória vazando. Foi tetado apenas liberação da AdjList, "vertice", explicitamente e usando as duas linhas - essa foi a solução melhor.
 }
 
+
 void Grafo::allocate(int n) {
   if (maxVertex_ > 0) {
     delete[] vertices;
