@@ -31,10 +31,10 @@ void quickSort(int arr[][2], int low, int high);
 
 // HEAP SORT (heap mínimo)
 // Função para ajustar o heap máximo (inversão das condições)
-void heapify(int arr[][2], int col, int root, int n);
+void heapify(int arr[][2], int nRows, int root);
 
 // Função principal do Heap Sort
-void heapSort(int arr[][2], int col);
+void heapSort(int arr[][2], int nRows);
 
 // Adaptação de Counting Sort
 int countingSort(int arr[][2], int nRows, int nColours);

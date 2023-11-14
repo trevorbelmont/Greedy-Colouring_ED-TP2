@@ -127,7 +127,7 @@ int partition(int arr[][2], int low, int high) {
   int pivot = arr[high][1];  // Escolhe o pivô como a última entrada da coluna
   int i = low - 1;           // Índice do menor elemento
 
-  // percorrer a partição coloando as entradas do vetor no lado certo em relação ao pivot
+  // percorrer a partição colocando as entradas do vetor no lado certo em relação ao pivot
   for (int j = low; j < high; j++) {
     // Se a seguda coluna é menor que o pivot ou se é igual mas a primeira coluna é menor
     if (arr[j][1] < pivot || (arr[j][1] == pivot && arr[j][0] < arr[high][0])) {
@@ -160,27 +160,27 @@ void quickSort(int arr[][2], int low, int high) {
 // Função recursiva para ajustar o heap máximo
 // Seus parâmetros são o ponteiro da matriz, número de linhas a serem ordenadas (nRows), o número de colunas da matriz a se ordenar (nRows),
 // a raíz da subárvore (root), e o índice da última folha da sub-árvore (n, que é alterado na chamada)
-void heapify(int arr[][2], int nRows, int root, int n) {
+void heapify(int arr[][2], int nRows, int root) {
   int largest = root;
   int left = 2 * root + 1;
   int right = 2 * root + 2;
 
   // Verifica se a segunda entrada do filho esquerdo é maior que a do pai
   // ou se ambas são iguais mas primeira entrada do filho esquerdo é maior
-  if (left < n && (arr[left][1] > arr[largest][1] 
+  if (left < nRows && (arr[left][1] > arr[largest][1] 
   || (arr[left][1] == arr[largest][1] && arr[left][0] > arr[largest][0]))) {
     largest = left;
   }
 
   // Verifica se a segunda entrada do filho direito é maior que a maior dos dois (filho esquerdo e pai)
   // ou se é igual à maior dos dois, porém tem primeira entrada maior.
-  if (right < n && (arr[right][1] > arr[largest][1] || (arr[right][1] == arr[largest][1] && arr[right][0] > arr[largest][0]))) {
+  if (right < nRows && (arr[right][1] > arr[largest][1] || (arr[right][1] == arr[largest][1] && arr[right][0] > arr[largest][0]))) {
     largest = right;
   }
   // Se o maior não for o pai, troca os elementos e continua o ajuste
   if (largest != root) {
     swap(arr[root], arr[largest]);  // Troca os elementos usando a função swap
-    heapify(arr, nRows, largest, n);
+    heapify(arr, nRows, largest);
   }
 }
 
@@ -188,14 +188,14 @@ void heapify(int arr[][2], int nRows, int root, int n) {
 void heapSort(int arr[][2], int nRows) {
   // Constrói o heap máximo
   for (int i = nRows / 2 - 1; i >= 0; i--) {
-    heapify(arr, nRows, i, nRows);
+    heapify(arr, nRows, i);
   }
 
   // Re-heapifica de baixo para cima
   for (int i = nRows - 1; i > 0; i--) {
     swap(arr[0], arr[i]);
     // Chama heapify na raiz reduzida
-    heapify(arr, nRows, 0, i); //
+    heapify(arr, i, 0); //
   }
 }
 
